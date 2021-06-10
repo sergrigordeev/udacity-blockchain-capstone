@@ -9,7 +9,7 @@ contract('TestOwnable', accounts => {
 
     describe('check ownable', function () {
 
-        it('should set owner when contract created and event e,ited', async function () {
+        it('should set owner when contract created and event shoulb be emited emited', async function () {
             this.contract = await Ownable.new({ from: account_one });
             // Get the hash of the deployment transaction
             let txHash = this.contract.transactionHash
@@ -23,13 +23,13 @@ contract('TestOwnable', accounts => {
         })
 
         it('should transfer ownership and emit event', async function () {
-            let result = await this.contract.transferOwnership(account_two, {from: account_one})
+            let result = await this.contract.transferOwnership(account_two, { from: account_one })
             truffleAssert.eventEmitted(result, 'OwnerShipTransferd');
             assert.equal(account_two, await this.contract.getOwner())
         })
 
         it('should not transfer ownership', async function () {
-            await truffleAssert.reverts( this.contract.transferOwnership(account_one, {from: account_one}));
+            await truffleAssert.reverts(this.contract.transferOwnership(account_one, { from: account_one }));
             assert.equal(account_two, await this.contract.getOwner())
         })
     });

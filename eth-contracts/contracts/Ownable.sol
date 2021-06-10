@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.5.0;
 
-import 'openzeppelin-solidity/contracts/utils/Address.sol';
+import "openzeppelin-solidity/contracts/utils/Address.sol";
 
 contract Ownable {
     using Address for address;
@@ -19,7 +19,7 @@ contract Ownable {
 
     //  3) create an 'onlyOwner' modifier that throws if called by any account other than the owner.
     modifier onlyOwner() {
-        require(_owner == msg.sender, "only for woner");
+        require(_owner == msg.sender, "only for owner");
         _;
     }
 

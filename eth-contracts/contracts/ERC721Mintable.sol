@@ -1,23 +1,15 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.5.0;
 
-import 'openzeppelin-solidity/contracts/utils/Address.sol';
-import 'openzeppelin-solidity/contracts/drafts/Counters.sol';
-import 'openzeppelin-solidity/contracts/math/SafeMath.sol';
-import 'openzeppelin-solidity/contracts/token/ERC721/IERC721Receiver.sol';
+import "openzeppelin-solidity/contracts/utils/Address.sol";
+import "openzeppelin-solidity/contracts/drafts/Counters.sol";
+import "openzeppelin-solidity/contracts/math/SafeMath.sol";
+import "openzeppelin-solidity/contracts/token/ERC721/IERC721Receiver.sol";
 import "./Ownable.sol";
 import "./Oraclize.sol";
+import "./Pausable.sol";
 
 
-
-//  TODO's: Create a Pausable contract that inherits from the Ownable contract
-contract Pausable is Ownable {
-    //  1) create a private '_paused' variable of type bool
-    //  2) create a public setter using the inherited onlyOwner modifier
-    //  3) create an internal constructor that sets the _paused variable to false
-    //  4) create 'whenNotPaused' & 'paused' modifier that throws in the appropriate situation
-    //  5) create a Paused & Unpaused event that emits the address that triggered the event
-}
 
 contract ERC165 {
     bytes4 private constant _INTERFACE_ID_ERC165 = 0x01ffc9a7;
