@@ -20,7 +20,7 @@ contract('TestPausable', accounts => {
 
             truffleAssert.eventEmitted(result, 'OwnerShipTransferd');
 
-            assert.equal(account_one, await this.contract.getOwner())
+            assert.equal(account_one, await this.contract.owner())
             assert.equal(false, await this.contract.isPaused())
         })
 

@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.5.0;
+pragma solidity >= 0.5.0;
 
 import "openzeppelin-solidity/contracts/utils/Address.sol";
 import "openzeppelin-solidity/contracts/drafts/Counters.sol";
@@ -98,12 +98,12 @@ contract ERC721 is Pausable, ERC165 {
         _registerInterface(_INTERFACE_ID_ERC721);
     }
 
-    function balanceOf(address owner) public view returns (uint256) {
+    function balanceOf(address owner) public view whenNotPaused returns (uint256) {
         // TIP: remember the functions to use for Counters. you can refresh yourself with the link above
         return _ownedTokensCount[owner].current();
     }
 
-    function ownerOf(uint256 tokenId) public view returns (address) {
+    function ownerOf(uint256 tokenId) public view whenNotPaused returns (address) {
         // TODO return the owner of the given tokenId
         return _tokenOwner[tokenId];
     }
@@ -126,7 +126,7 @@ contract ERC721 is Pausable, ERC165 {
         emit Approval(ownerOf(tokenId), to, tokenId);
     }
 
-    function getApproved(uint256 tokenId) public view returns (address) {
+    function getApproved(uint256 tokenId) public view whenNotPaused returns (address) {
         return _tokenApprovals[tokenId];
     }
 
@@ -151,6 +151,7 @@ contract ERC721 is Pausable, ERC165 {
     function isApprovedForAll(address owner, address operator)
         public
         view
+        whenNotPaused
         returns (bool)
     {
         return _operatorApprovals[owner][operator];
@@ -160,7 +161,7 @@ contract ERC721 is Pausable, ERC165 {
         address from,
         address to,
         uint256 tokenId
-    ) public {
+    ) public whenNotPaused{
         require(_isApprovedOrOwner(msg.sender, tokenId));
 
         _transferFrom(from, to, tokenId);
@@ -170,7 +171,7 @@ contract ERC721 is Pausable, ERC165 {
         address from,
         address to,
         uint256 tokenId
-    ) public {
+    ) public whenNotPaused{
         safeTransferFrom(from, to, tokenId, "");
     }
 
@@ -179,7 +180,7 @@ contract ERC721 is Pausable, ERC165 {
         address to,
         uint256 tokenId,
         bytes memory _data
-    ) public {
+    ) public whenNotPaused{
         transferFrom(from, to, tokenId);
         require(_checkOnERC721Received(from, to, tokenId, _data));
     }
@@ -328,7 +329,7 @@ contract ERC721Enumerable is ERC165, ERC721 {
      * @dev Gets the total amount of tokens stored by the contract
      * @return uint256 representing the total amount of tokens
      */
-    function totalSupply() public view returns (uint256) {
+    function totalSupply() public view whenNotPaused returns (uint256) {
         return _allTokens.length;
     }
 
@@ -338,7 +339,7 @@ contract ERC721Enumerable is ERC165, ERC721 {
      * @param index uint256 representing the index to be accessed of the tokens list
      * @return uint256 token ID at the given index of the tokens list
      */
-    function tokenByIndex(uint256 index) public view returns (uint256) {
+    function tokenByIndex(uint256 index) public view whenNotPaused returns (uint256) {
         require(index < totalSupply());
         return _allTokens[index];
     }
@@ -368,7 +369,7 @@ contract ERC721Enumerable is ERC165, ERC721 {
      * @param to address the beneficiary that will own the minted token
      * @param tokenId uint256 ID of the token to be minted
      */
-    function _mint(address to, uint256 tokenId) internal {
+    function _mint(address to, uint256 tokenId)  internal {
         super._mint(to, tokenId);
 
         _addTokenToOwnerEnumeration(to, tokenId);
@@ -523,16 +524,16 @@ contract ERC721Metadata is ERC721Enumerable, usingOraclize {
 }
 
 contract CustomERC721Token is ERC721Metadata {
-    constructor()
+    constructor(string memory name, string memory symbol)
         public
         ERC721Metadata(
-            "SG_RE_TOKEN",
-            "SGRET",
+            name,
+            symbol,
             "https://s3-us-west-2.amazonaws.com/udacity-blockchain/capstone/"
         )
     {}
 
-    function mint(address to, uint256 tokenId) public onlyOwner returns (bool) {
+    function mint(address to, uint256 tokenId) public onlyOwner whenNotPaused returns (bool) {
         _mint(to, tokenId);
         _setTokenURI(tokenId);
         return true;

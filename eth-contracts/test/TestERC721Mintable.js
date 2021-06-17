@@ -1,17 +1,17 @@
 var CustomERC721Token = artifacts.require('CustomERC721Token');
 const truffleAssert = require('truffle-assertions');
-
+const NAME = "SG_RE_TOKEN"
+const SYMBOL = "SGRET"
 contract('TestERC721Mintable', accounts => {
 
     const account_one = accounts[0];
     const account_two = accounts[1];
     const account_three = accounts[2];
-    const NAME = "SG_RE_TOKEN"
-    const SYMBOL = "SGRET"
+    
     const BASE_URI = "https://s3-us-west-2.amazonaws.com/udacity-blockchain/capstone/"
     describe('match erc721 spec', function () {
         beforeEach(async function () {
-            this.contract = await CustomERC721Token.new({ from: account_one });
+            this.contract = await CustomERC721Token.new(NAME, SYMBOL, { from: account_one });
 
             await this.contract.mint(account_two, 21)
             await this.contract.mint(account_two, 22)
@@ -70,7 +70,7 @@ contract('TestERC721Mintable', accounts => {
 
     describe('have ownership properties', function () {
         beforeEach(async function () {
-            this.contract = await CustomERC721Token.new({ from: account_one });
+            this.contract = await CustomERC721Token.new(NAME, SYMBOL, { from: account_one });
         })
 
         it('should fail when minting when address is not contract owner', async function () {

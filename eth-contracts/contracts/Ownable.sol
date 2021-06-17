@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.5.0;
+pragma solidity >= 0.5.0; 
 
 import "openzeppelin-solidity/contracts/utils/Address.sol";
 
@@ -23,7 +23,7 @@ contract Ownable {
         _;
     }
 
-    function getOwner() public view returns (address) {
+    function owner() public view returns (address) {
         return _owner;
     }
 
