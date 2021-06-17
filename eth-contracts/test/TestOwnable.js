@@ -19,18 +19,18 @@ contract('TestOwnable', accounts => {
 
 
             truffleAssert.eventEmitted(result, 'OwnerShipTransferd');
-            assert.equal(account_one, await this.contract.getOwner())
+            assert.equal(account_one, await this.contract.owner())
         })
 
         it('should transfer ownership and emit event', async function () {
             let result = await this.contract.transferOwnership(account_two, { from: account_one })
             truffleAssert.eventEmitted(result, 'OwnerShipTransferd');
-            assert.equal(account_two, await this.contract.getOwner())
+            assert.equal(account_two, await this.contract.owner())
         })
 
         it('should not transfer ownership', async function () {
             await truffleAssert.reverts(this.contract.transferOwnership(account_one, { from: account_one }));
-            assert.equal(account_two, await this.contract.getOwner())
+            assert.equal(account_two, await this.contract.owner())
         })
     });
 })
