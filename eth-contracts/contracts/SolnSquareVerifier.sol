@@ -43,7 +43,7 @@ contract SolnSquareVerifier is CustomERC721Token {
     // TODO Create a function to mint new NFT only after the solution has been verified
     //  - make sure the solution is unique (has not been used before)
     //  - make sure you handle metadata as well as tokenSuplly
-    function saveMint(
+    function safeMint(
         address to,
         uint256 tokenId,
         uint256[2] memory a,

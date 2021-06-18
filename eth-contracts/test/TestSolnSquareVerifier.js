@@ -57,7 +57,7 @@ contract('TestSolnSquareVerifier', accounts => {
         // Test if a new solution can be added for contract - SolnSquareVerifier
         it('should add solution', async () => {
             const contract = await SolnSquareVerifier.deployed();
-            let result = await contract.saveMint(requestor1, 111, a, b, c, inputs, { from: owner });
+            let result = await contract.safeMint(requestor1, 111, a, b, c, inputs, { from: owner });
             truffleAssert.eventEmitted(result, "SolutionAdded", { "sender": requestor1, tokenId: web3.utils.toBN(111) })
         });
         // Test if an ERC721 token can be minted for contract - SolnSquareVerifier
