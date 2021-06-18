@@ -1,3 +1,5 @@
+
+
 /**
  * Use this file to configure your truffle project. It's seeded with some
  * common settings for different networks and features like migrations,
@@ -23,7 +25,11 @@
 //
 // const fs = require('fs');
 // const mnemonic = fs.readFileSync(".secret").toString().trim();
+const HDWallet = require('@truffle/hdwallet-provider');
 
+//
+const fs = require('fs');
+const mnemonic = fs.readFileSync(".secret").toString().trim();
 module.exports = {
   /**
    * Networks define how you connect to your ethereum client and let you set the
@@ -34,6 +40,7 @@ module.exports = {
    *
    * $ truffle test --network <network-name>
    */
+
 
   networks: {
     // Useful for testing. The `development` name is special - truffle uses it by default
@@ -57,7 +64,14 @@ module.exports = {
       // from: <address>,        // Account to send txs from (default: accounts[0])
       // websockets: true        // Enable EventEmitter interface for web3 (default: false)
     // },
-
+    rinkeby: {
+      provider: function() { 
+       return new HDWallet(mnemonic, "https://rinkeby.infura.io/v3/9c47477ec4e84a77b447a47bacd5e773");
+      },
+      network_id: 4,
+      gas: 4500000,
+      gasPrice: 10000000000,
+  }
     // Useful for deploying to a public network.
     // NB: It's important to wrap the provider as a function.
     // ropsten: {

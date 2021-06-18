@@ -18,7 +18,9 @@
     "fsevents": "^1.2.9"
   },
   "dependencies": {
+    "@truffle/hdwallet-provider": "^1.4.0",
     "openzeppelin-solidity": "^2.2.0",
+    "save-dev": "0.0.1-security",
     "solc": "^0.5.2",
     "solc-js": "^0.5.2"
   }

@@ -63,19 +63,19 @@ contract('TestSolnSquareVerifier', accounts => {
         // Test if an ERC721 token can be minted for contract - SolnSquareVerifier
         it('should mint token', async () => {
             const contract = await SolnSquareVerifier.deployed();
-            let result = await contract.saveMint(requestor2, 131, a1, b1, c1, inputs1, { from: owner });
+            let result = await contract.safeMint(requestor2, 131, a1, b1, c1, inputs1, { from: owner });
             truffleAssert.eventEmitted(result, "Transfer", { "to": requestor2, tokenId: web3.utils.toBN(131) })
 
         });
 
         it('should not mint token with used solution', async () => {
             const contract = await SolnSquareVerifier.deployed();
-            await truffleAssert.reverts(contract.saveMint(requestor2, 133, a, b, c, inputs, { from: owner }), 'solution is already used');
+            await truffleAssert.reverts(contract.safeMint(requestor2, 133, a, b, c, inputs, { from: owner }), 'solution is already used');
         });
 
         it('should not accept solution', async () => {
             const contract = await SolnSquareVerifier.deployed();
-            await truffleAssert.reverts(contract.saveMint(requestor2, 134, a1, b, c, inputs, { from: owner }), 'wrong solution');
+            await truffleAssert.reverts(contract.safeMint(requestor2, 134, a1, b, c, inputs, { from: owner }), 'wrong solution');
         });
     });
 });
